@@ -3,12 +3,12 @@
 /**
  * Create a select element under billing details containing all shipping post titles.
  * Once the user selects a predefined shipping destination, the script defined in the
- * tc_checkout_update_shipping_address() function updates all shipping fields.
- * @depends tc_checkout_update_shipping_address()
+ * wsme_checkout_update_shipping_address() function updates all shipping fields.
  * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
+ * @depends wsme_checkout_update_shipping_address()
  */
-add_filter( 'woocommerce_checkout_fields' , 'tc_display_default_shipping_locations' );
-function tc_display_default_shipping_locations( $fields ) {
+add_filter( 'woocommerce_checkout_fields' , 'wsme_display_default_shipping_locations' );
+function wsme_display_default_shipping_locations( $fields ) {
 
 	// Capture add all shipping post titles.
 	$shipping_count = 1;
@@ -38,8 +38,8 @@ function tc_display_default_shipping_locations( $fields ) {
  * default shipping destinations are chosen.
  * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
  */
-add_action( 'wp_head', 'tc_checkout_update_shipping_address', 10);
-function tc_checkout_update_shipping_address() {
+add_action( 'wp_head', 'wsme_checkout_update_shipping_address', 10);
+function wsme_checkout_update_shipping_address() {
 
 	$shipping_addresses[] = '';
 
@@ -51,7 +51,7 @@ function tc_checkout_update_shipping_address() {
 
 			$post_id = get_the_id();
 
-			// Store shipping addresses in an array referenced by post id.
+			// Store shipping addresses in an array referenced by post number.
 			foreach([
 				'first_name',
 				'last_name',
@@ -75,8 +75,44 @@ function tc_checkout_update_shipping_address() {
 	<script type="text/javascript">
 
 		jQuery((function($){
+
+			var regionsMap = [];
+
+			/*
+			 * Store regions to be used to update region select element.
+			 * regionsMap[name] = code;
+			 */
+			$(document).ready(function mapRegions(){
+				$.each($('select#shipping_state option'), function(index, region){
+					regionsMap[$(region).text()] = $(region).val();
+				});
+			});
+
+			/*
+			 * Select or unselect 'Ship to different address' checkbox.
+			 */
+			function toggleShipToDiffAddr (is_diff_addr) {
+				$('input#ship-to-different-address-checkbox').prop('checked', is_diff_addr);
+			}
+
+			/*
+			 * Cycle through all shipping fields and either enable or disable.
+			 * @isDisabled true to enable and false to display shipping fields access.
+			 */
+			function toggleShippingFieldAccess (is_disabled) {
+				[
+					$(".shipping_address select[id^='shipping_']"),
+					$(".shipping_address input[id^='shipping_']"),
+					$("textarea[id='order_comments']"),
+				]
+				.forEach(function(obj) {
+					obj.prop("disabled", !is_disabled);
+				});
+			}
+
 			/*
 			 * Set all shipping fields to either what has been passed or an empty string.
+			 * Pass no arguments to unset all fields and uncheck 'ship to different address'.
 			 */
 			function updateShippingFields (
 				firstName,
@@ -96,7 +132,7 @@ function tc_checkout_update_shipping_address() {
 					'input#shipping_address_1'	: address,
 					'input#shipping_address_2'	: addressExtra,
 					'input#shipping_city'		: townCity,
-					'select#shipping_state'		: region,
+					'select#shipping_state'		: regionsMap[region],
 					'input#shipping_postcode'	: postcode,
 					'textarea#order_comments'	: orderNotes
 				};
@@ -108,21 +144,8 @@ function tc_checkout_update_shipping_address() {
 						''
 					);
 				}
-			}
 
-			/*
-			 * Cycle through all shipping fields and either enable or disable.
-			 * @isDisabled true to enable and false to display shipping fields access.
-			 */
-			function toggleShippingFieldAccess (is_disabled) {
-				[
-					$(".shipping_address select[id^='shipping_']"),
-					$(".shipping_address input[id^='shipping_']"),
-					$("textarea[id='order_comments']"),
-				]
-				.forEach(function(obj) {
-					obj.prop("disabled", !is_disabled);
-				});
+				toggleShipToDiffAddr(arguments.length);
 			}
 
 			/*
@@ -154,6 +177,7 @@ function tc_checkout_update_shipping_address() {
         			toggleShippingFieldAccess(true);
 	        	}
 	        });
+
 		})(jQuery));
     </script>
     <?php
