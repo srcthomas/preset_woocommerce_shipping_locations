@@ -5,6 +5,7 @@
  * Once the user selects a predefined shipping destination, the script defined in the
  * tc_checkout_update_shipping_address() function updates all shipping fields.
  * @depends tc_checkout_update_shipping_address()
+ * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
  */
 add_filter( 'woocommerce_checkout_fields' , 'tc_display_default_shipping_locations' );
 function tc_display_default_shipping_locations( $fields ) {
@@ -35,6 +36,7 @@ function tc_display_default_shipping_locations( $fields ) {
 /**
  * Generate a script added to the head which updates shipping fields when one of the
  * default shipping destinations are chosen.
+ * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
  */
 add_action( 'wp_head', 'tc_checkout_update_shipping_address', 10);
 function tc_checkout_update_shipping_address() {
