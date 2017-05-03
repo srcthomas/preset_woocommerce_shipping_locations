@@ -3,12 +3,12 @@
 /**
  * Create a select element under billing details containing all shipping post titles.
  * Once the user selects a predefined shipping destination, the script defined in the
- * wsme_checkout_update_shipping_address() function updates all shipping fields.
+ * srct_checkout_update_shipping_address() function updates all shipping fields.
  * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
- * @depends wsme_checkout_update_shipping_address()
+ * @depends srct_checkout_update_shipping_address()
  */
-add_filter( 'woocommerce_checkout_fields' , 'wsme_display_default_shipping_locations' );
-function wsme_display_default_shipping_locations( $fields ) {
+add_filter( 'woocommerce_checkout_fields' , 'srct_display_default_shipping_locations' );
+function srct_display_default_shipping_locations( $fields ) {
 
 	// Capture add all shipping post titles.
 	$shipping_count = 1;
@@ -38,8 +38,8 @@ function wsme_display_default_shipping_locations( $fields ) {
  * default shipping destinations are chosen.
  * @source https://github.com/srcthomas/preset_woocommerce_shipping_locations/
  */
-add_action( 'wp_head', 'wsme_checkout_update_shipping_address', 10);
-function wsme_checkout_update_shipping_address() {
+add_action( 'wp_head', 'srct_checkout_update_shipping_address', 10);
+function srct_checkout_update_shipping_address() {
 
 	$shipping_addresses[] = '';
 
