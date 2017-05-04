@@ -28,7 +28,7 @@ function srct_display_default_shipping_locations( $fields ) {
 		'label'		=> __('Donate by selecting one of our predefined shipping locations', 'woocommerce'),
 		'class'		=> array('form-row-wide'),
 		'clear'		=> true
-    );
+	);
 
 	return $fields;
 }
@@ -151,34 +151,33 @@ function srct_checkout_update_shipping_address() {
 			/*
 			 * Update shipping fields when pickup locations upddated.
 			 */
-	        $('select#pick_up_locations').live('change', function() {
+			$('select#pick_up_locations').live('change', function() {
 
 				var shipping_addresses 	= <?php echo $shipping_addresses; ?>;
-	        	var location 			= $('select#pick_up_locations').attr('value');
-				var addr 				= shipping_addresses[location];
+				var location			= $('select#pick_up_locations').attr('value');
+				var addr				= shipping_addresses[location];
 
-	        	if (location != 'default' && location != 'undefined') {
-	        		// update fields to preset shipping fields
-	        		updateShippingFields(
-	        			addr.first_name,
-	        			addr.last_name,
-	        			addr.company,
-	        			addr.address,
-	        			addr.address_extra,
-	        			addr.town_city,
-	        			addr.region,
-	        			addr.postcode,
-	        			addr.order_notes
-        			);
-        			toggleShippingFieldAccess(false);
-	        	} else {
-	        		// Reset shipping fields to blank
-	        		updateShippingFields();
-        			toggleShippingFieldAccess(true);
-	        	}
-	        });
-
+				if (location != 'default' && location != 'undefined') {
+					// update fields to preset shipping fields
+					updateShippingFields(
+						addr.first_name,
+						addr.last_name,
+						addr.company,
+						addr.address,
+						addr.address_extra,
+						addr.town_city,
+						addr.region,
+						addr.postcode,
+						addr.order_notes
+					);
+					toggleShippingFieldAccess(false);
+				} else {
+					// Reset shipping fields to blank
+					updateShippingFields();
+					toggleShippingFieldAccess(true);
+				}
+			});
 		})(jQuery));
-    </script>
-    <?php
+	</script>
+	<?php
 }
