@@ -41,6 +41,7 @@ function srct_display_default_shipping_locations( $fields ) {
 add_action( 'wp_head', 'srct_checkout_update_shipping_address', 10);
 function srct_checkout_update_shipping_address() {
 
+	// $shipping_addresses[post_id][field_name] = field_value;
 	$shipping_addresses[] = '';
 
 	// Capture then JSONify all shipping details
