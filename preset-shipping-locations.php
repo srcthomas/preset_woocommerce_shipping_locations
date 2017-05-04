@@ -68,6 +68,7 @@ function srct_checkout_update_shipping_address() {
 			}
 		}
 
+		// JSONify all shipping addresses for JS to update shipping fields.
 		$shipping_addresses = json_encode($shipping_addresses);
 	}
 	wp_reset_query();
@@ -77,11 +78,11 @@ function srct_checkout_update_shipping_address() {
 
 		jQuery((function($){
 
+			// regionsMap[name] = code;
 			var regionsMap = [];
 
 			/*
 			 * Store regions to be used to update region select element.
-			 * regionsMap[name] = code;
 			 */
 			$(document).ready(function mapRegions(){
 				$.each($('select#shipping_state option'), function(index, region){
