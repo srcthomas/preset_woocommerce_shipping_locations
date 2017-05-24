@@ -4,8 +4,9 @@ Tags: WooCommerce, shipping, custom post types
 Requires at least: 4.0
 Tested up to: 4.7
 Stable tag: 4.7
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+WC tested up to: 3.0.7
+License: GNU General Public License v3.0
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Utilises shipping location custom post types to offer predefined shipping locations to a customer for easier shipping destination entry.
 
