@@ -10,15 +10,31 @@ Description: Utilises shipping location custom post types to offer predefined sh
 Author: Thomas Cowley
 Version: 0.1.1
 Author URI: https://github.com/srcthomas
+Domain Path: /languages
 Text Domain: woocommerce-preset-shipping-locations
-*/
+
+License: GNU General Public License v3.0
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+
+WooCommerce Preset Shipping Locations is free software: you can redistribute it
+and/or modify it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or any later version.
+
+WooCommerce Preset Shipping Locations is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with WooCommerce Preset Shipping Locations. If not, see http://www.gnu.org/licenses/gpl-3.0.html.
+ */
 
 /**
- * Check if WooCommerce is active
+ * Check if the WooCommerce plugin is active.
  **/
 if ( in_array( 'woocommerce/woocommerce.php',
 		apply_filters( 'active_plugins', get_option( 'active_plugins' )	)
 	) ) {
+
 	/**
 	 * Create a select element under billing details containing all shipping post titles.
 	 * Once the user selects a predefined shipping destination, the script defined in the
@@ -144,7 +160,7 @@ if ( in_array( 'woocommerce/woocommerce.php',
 					townCity,
 					region,
 					postcode,
-					orderNotes) {
+					orderNotes ) {
 
 					var addr = {
 						'input#shipping_first_name'	: firstName,
